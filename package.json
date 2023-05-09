@@ -1,0 +1,37 @@
+{
+  "name": "openrateboost-server",
+  "version": "0.1.4",
+  "description": "OpenRateBoost main web application server.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon ./index.js",
+    "test": "mocha"
+  },
+  "author": "Brandon Best",
+  "license": "ISC",
+  "dependencies": {
+    "auth0": "^2.42.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "cron": "^2.3.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-oauth2-jwt-bearer": "^1.1.0",
+    "fs": "^0.0.1-security",
+    "helmet": "^5.1.0",
+    "mixpanel": "^0.17.0",
+    "mongoose": "^7.0.3",
+    "openai": "^3.2.1",
+    "stripe": "^12.2.0",
+    "winston": "^3.7.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-nock": "^1.3.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.16",
+    "sinon": "^15.0.3",
+    "sinon-chai": "^3.7.0"
+  }
+}
