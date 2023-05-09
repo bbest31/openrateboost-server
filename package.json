@@ -1,7 +1,7 @@
 {
   "name": "openrateboost-server",
-  "version": "0.1.4",
-  "description": "OpenRateBoost main web application server.",
+  "version": "0.1.5",
+  "description": "OpenRateBoost main server.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
