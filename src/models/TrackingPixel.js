@@ -21,12 +21,13 @@ TrackingPixelSchema.post('insertMany', function (docs) {
   TrackingPixel.find({ uuid: docs[0].uuid })
     .exec()
     .then((results) => {
+      console.log(results.length);
       if (results.length === 1) {
         // If the tracking pixel event is the first time being logged for that uuid, then increment the unique opens count for the subject line.
         // This is because it is the first time this email has been opened.
-        SubjectLine.updateOne({ pixel: { $eq: docs[0].uuid } }, { $inc: { uniqueOpens: 1 } }).exec();
+        SubjectLine.updateOne({ pixels: { $eq: docs[0].uuid } }, { $inc: { uniqueOpens: 1 } }).exec();
       }
-      SubjectLine.updateOne({ pixel: { $eq: docs[0].uuid } }, { $inc: { opens: 1 } }).exec();
+      SubjectLine.updateOne({ pixels: { $eq: docs[0].uuid } }, { $inc: { opens: 1 } }).exec();
     });
 });
 
