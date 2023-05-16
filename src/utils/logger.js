@@ -1,7 +1,7 @@
 'use strict';
 const { createLogger, transports, format } = require('winston');
 const { printf, combine, timestamp, colorize, uncolorize, errors, ms, json } = format;
-const { Console, File } = transports;
+const { Console } = transports;
 const { LOG_LEVEL, NODE_ENV } = require('../configs/loggerConfig.js');
 
 function buildLogger() {
@@ -18,9 +18,8 @@ function buildLogger() {
       ms(),
       NODE_ENV === 'development' ? devLogFormat : json()
     ),
-    transports: [
-      NODE_ENV === 'development' ? new Console() : new File({ filename: './logs/error.log', level: 'error' }),
-    ],
+    exitOnError: false,
+    transports: [new Console()],
   });
 
   return logger;

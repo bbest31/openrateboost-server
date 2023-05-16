@@ -1,6 +1,6 @@
 'use strict';
 const LOGGER_CONFIG = {
-  LOG_LEVEL: process.env.LOG_LEVEL,
+  LOG_LEVEL: process.env.LOG_LEVEL || 'error',
   NODE_ENV: process.env.NODE_ENV,
 };
 
