@@ -9,7 +9,7 @@ const mg = mailgun.client({ username: 'api', key: API_KEY });
 
 const sendEmail = (from, subject, text) => {
   const data = {
-    from: `OpenRateBoost Support`,
+    from: `OpenRateBoost Support User <${from}>`,
     to: process.env.SUPPORT_EMAIL || 'thebrandonmbest@gmail.com',
     subject: `${subject} | ${from}`,
     text: text,
