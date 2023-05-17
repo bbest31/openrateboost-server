@@ -1,5 +1,5 @@
 'use strict';
-const { getUser, patchUser } = require('../services/userServices.js');
+const { getUser, patchUser, postUserSupport } = require('../services/userServices.js');
 
 /**
  * Read the user based on the id
@@ -35,4 +35,22 @@ async function updateUser(req, res, next) {
     });
 }
 
-module.exports = { readUser, updateUser };
+/**
+ * Create a support email for the user
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+async function createUserSupportEmail(req, res, next) {
+  const { id } = req.params;
+  const { subject, text } = req.body;
+  await postUserSupport(id, subject, text)
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+module.exports = { readUser, updateUser, createUserSupportEmail };

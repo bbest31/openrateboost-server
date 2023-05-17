@@ -1,5 +1,6 @@
 'use strict';
 const { managementAPI } = require('../apis/auth0Api.js');
+const { sendEmail } = require('../apis/mailgunApi.js');
 
 const UPDATABLE_USER_FIELDS = ['email', 'company', 'role'];
 
@@ -81,10 +82,27 @@ async function getUserMetadata(userId) {
   }
 }
 
+/**
+ * Sends a support email to the company support email
+ * @param {*} userId
+ * @param {*} subject
+ * @param {*} text
+ */
+async function postUserSupport(userId, subject, text) {
+  try {
+    const user = await getUser(userId);
+    const { email } = user;
+    await sendEmail(email, subject, text);
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getUser,
   getUsers,
   getUserMetadata,
   patchUserMetadata,
   patchUser,
+  postUserSupport,
 };
