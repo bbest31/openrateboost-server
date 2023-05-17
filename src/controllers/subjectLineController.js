@@ -105,6 +105,18 @@ async function createSubjectLines(req, res, next) {
     }
   }
 
+  let lowercase = req.query.lowercase;
+  if (lowercase !== undefined) {
+    if (lowercase !== 'true' && lowercase !== 'false') {
+      res.status(400).send({ error: true, message: 'Invalid lowercase value' });
+      return;
+    } else {
+      options.lowercase = lowercase === 'true';
+    }
+  } else {
+    options.lowercase = false;
+  }
+
   const { sub } = req.auth.payload;
   const user = await getUser(sub);
 

@@ -77,6 +77,9 @@ async function postSubjectLines(user, email, options) {
       // strip extraneous characters from the completion text
       let text = completion.data.choices[0].text;
       text = text.replace(/\n/g, '').replace(/"/g, '').trim();
+      if (options.lowercase === true) {
+        text = text.toLowerCase();
+      }
       result.push({ style, text, userId: user.user_id, useCount: 0, opens: 0, uniqueOpens: 0 });
     }
 
