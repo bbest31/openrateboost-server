@@ -10,6 +10,8 @@ const helmet = require('helmet');
 const checkJwt = require('./src/middlewares/checkJwt.js');
 const sendErrorResponse = require('./src/middlewares/errorResponseMiddleware.js');
 const mongoose = require('mongoose');
+const http = require('http');
+const enforce = require('express-sslify');
 
 const usageJob = require('./src/jobs/usageJob.js');
 // UTILS
@@ -30,6 +32,7 @@ async function main() {
   if (process.env.NODE_ENV !== 'production') {
     mongoose.set('debug', true);
   } else {
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
     mongoose.set({ autoIndex: false, autoCreate: false });
   }
   mongoose.set({ sanitizeFilter: true, strictQuery: true });
@@ -57,6 +60,6 @@ app.use(sendErrorResponse);
 
 usageJob.start();
 
-app.listen(port, () => {
-  console.log(`OpenRateBoost server listening on port ${port}`);
+http.createServer(app).listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
