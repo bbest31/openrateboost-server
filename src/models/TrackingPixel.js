@@ -24,7 +24,6 @@ TrackingPixelSchema.post('insertMany', function (docs) {
       if (results.length === 2) { // we look for two because the first one is logged when the pixel is created, and the second one is logged when the pixel is opened.
         // If the tracking pixel event is the first time being logged for that uuid, then increment the unique opens count for the subject line.
         // This is because it is the first time this email has been opened.
-        console.log('incrementing unique opens');
         SubjectLine.updateOne({ pixels: { $eq: docs[0].uuid } }, { $inc: { uniqueOpens: 1 } }).exec();
       }
       SubjectLine.updateOne({ pixels: { $eq: docs[0].uuid } }, { $inc: { opens: 1 } }).exec();
