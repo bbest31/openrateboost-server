@@ -1,5 +1,4 @@
 const TrackingPixel = require('../models/TrackingPixel');
-const SubjectLine = require('../models/SubjectLines');
 
 /**
  *
