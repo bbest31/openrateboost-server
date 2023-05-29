@@ -26,7 +26,7 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(helmet());
-app.use(/\/((?!.*tracking_pixel|.*stripe_webhooks|.*support).)*/, checkJwt);
+app.use(/\/((?!.*tracking_pixel|.*stripe_webhooks|.*contact).)*/, checkJwt);
 
 async function main() {
   if (process.env.NODE_ENV !== 'production') {

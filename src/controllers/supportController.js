@@ -1,4 +1,4 @@
-const { postSupport } = require('../services/supportServices.js');
+const { postContactEmail } = require('../services/supportServices.js');
 
 /**
  * Create a support email
@@ -6,9 +6,9 @@ const { postSupport } = require('../services/supportServices.js');
  * @param {*} res
  * @param {*} next
  */
-async function createSupportEmail(req, res, next) {
+async function createContactEmail(req, res, next) {
   const { name, email, subject, message } = req.body;
-  await postSupport(name, email, subject, message)
+  await postContactEmail(name, email, subject, message)
     .then(() => {
       res.status(200).send();
     })
@@ -18,5 +18,5 @@ async function createSupportEmail(req, res, next) {
 }
 
 module.exports = {
-  createSupportEmail,
+  createContactEmail,
 };

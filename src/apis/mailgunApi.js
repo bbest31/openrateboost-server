@@ -18,7 +18,7 @@ const sendEmail = (from, subject, text) => {
   return mg.messages.create(DOMAIN, data);
 };
 
-const sendSupportEmail = (name, email, subject, message) => {
+const sendContactEmail = (name, email, subject, message) => {
   const data = {
     from: `${name} <${email}>`,
     to: process.env.SUPPORT_EMAIL || 'thebrandonbest@gmail.com',
@@ -29,4 +29,4 @@ const sendSupportEmail = (name, email, subject, message) => {
   return mg.messages.create(DOMAIN, data);
 };
 
-module.exports = { sendEmail, sendSupportEmail };
+module.exports = { sendEmail, sendContactEmail };

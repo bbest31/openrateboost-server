@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { createSupportEmail } = require('../../controllers/supportController');
+const { createContactEmail } = require('../../controllers/supportController');
 
-router.post('', createSupportEmail);
+router.post('', createContactEmail);
 
 module.exports = router;

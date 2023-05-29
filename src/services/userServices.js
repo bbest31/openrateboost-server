@@ -1,6 +1,7 @@
 'use strict';
 const { managementAPI } = require('../apis/auth0Api.js');
 const { sendEmail } = require('../apis/mailgunApi.js');
+const mixpanel = require('../apis/mixpanelAPI.js');
 
 const UPDATABLE_USER_FIELDS = ['email', 'company', 'role'];
 
@@ -66,6 +67,10 @@ async function patchUser(userId, newUserData) {
   if (newUserData !== {}) {
     await patchUserMetadata(userId, newUserData);
   }
+
+  mixpanel.track('User Info Updated', { distinct_id: userId, ...newUserData });
+  // update Mixpanel profile
+  mixpanel.people.set(userId, newUserData);
 }
 
 /**
