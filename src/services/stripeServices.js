@@ -17,7 +17,7 @@ async function processStripeWebhook(sig, event, rawBody) {
     try {
       event = stripe.webhooks.constructEvent(rawBody, sig, STRIPE_WEBHOOK_SECRET);
     } catch (err) {
-      logger.log(`⚠️  Webhook signature verification failed.`, err.message);
+      console.log(`⚠️  Webhook signature verification failed.`, err.message);
       throw err;
     }
   }
