@@ -96,7 +96,7 @@ async function postSubjectLines(user, email, options) {
 
     managementAPI.updateUserMetadata({ id: user.user_id }, { usage_count: options.usage_count + 1 }, (err, user) => {
       if (err) {
-        logger.error('error incrementing user usage_count', err);
+        console.error('error incrementing user usage_count', err);
       }
     });
 

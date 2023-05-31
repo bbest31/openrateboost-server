@@ -11,7 +11,7 @@ var usageJob = new CronJob('0 0 1 * *', async function () {
       patchUserMetadata(user.user_id, { usage_count: 0 });
     });
   } catch (err) {
-    logger.error('Error running usageJob: ', err);
+    console.error('Error running usageJob: ', err);
   }
 });
 
