@@ -2,6 +2,7 @@
 const { managementAPI } = require('../apis/auth0Api.js');
 const { sendEmail } = require('../apis/mailgunApi.js');
 const mixpanel = require('../apis/mixpanelAPI.js');
+const stripe = require('../apis/stripeApi');
 
 const UPDATABLE_USER_FIELDS = ['email', 'company', 'role'];
 
@@ -103,6 +104,33 @@ async function postUserSupport(userId, subject, text) {
   }
 }
 
+/**
+ * Create a checkout session for the user.
+ * @param {*} userId
+ * @param {*} plan
+ */
+async function postUserCheckout(userId, plan) {
+  try {
+    const user = await getUser(userId);
+    const { user_metadata } = user;
+    const product = await stripe.products.search({ query: `name~"${plan}"`, limit: 1 });
+    if (product.data.length === 0) throw new Error('Product not found');
+    const price = await stripe.prices.search({ query: `product:\'${product.data[0].id}\'`, limit: 1 });
+    if (price.data.length === 0) throw new Error('Price not found');
+    const session = await stripe.checkout.sessions.create({
+      success_url: `${process.env.CLIENT_URL}/dashboard`,
+      mode: 'subscription',
+      cancel_url: `${process.env.CLIENT_URL}/pricing`,
+      customer: user_metadata.customer_id,
+      line_items: [{ price: price.data[0].id, quantity: 1 }],
+    });
+
+    return session;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getUser,
   getUsers,
@@ -110,4 +138,5 @@ module.exports = {
   patchUserMetadata,
   patchUser,
   postUserSupport,
+  postUserCheckout,
 };

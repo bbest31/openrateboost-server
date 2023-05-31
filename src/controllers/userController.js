@@ -1,5 +1,5 @@
 'use strict';
-const { getUser, patchUser, postUserSupport } = require('../services/userServices.js');
+const { getUser, patchUser, postUserSupport, postUserCheckout } = require('../services/userServices.js');
 
 /**
  * Read the user based on the id
@@ -53,4 +53,22 @@ async function createUserSupportEmail(req, res, next) {
     });
 }
 
-module.exports = { readUser, updateUser, createUserSupportEmail };
+/**
+ * Create a checkout session for the user
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+async function createUserCheckout(req, res, next) {
+  const { id } = req.params;
+  const { plan } = req.query;
+  await postUserCheckout(id, plan)
+    .then((session) => {
+      res.status(200).send(session);
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+module.exports = { readUser, updateUser, createUserSupportEmail, createUserCheckout };

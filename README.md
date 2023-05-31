@@ -37,6 +37,9 @@ MAILGUN_API_KEY=
 MAILGUN_DOMAIN=
 SUPPORT_EMAIL=
 
+#CLIENT
+CLIENT_URL=http://localhost:3000
+
 ```
 
 ## 3. Start
